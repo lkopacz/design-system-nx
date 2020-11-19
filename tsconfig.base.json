@@ -15,7 +15,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@design-system-nx/ui-shared": ["libs/ui-shared/src/index.js"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

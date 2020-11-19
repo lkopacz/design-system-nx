@@ -1,7 +1,145 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "design-system": {
+      "root": "apps/design-system",
+      "sourceRoot": "apps/design-system/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/design-system",
+            "index": "apps/design-system/src/index.html",
+            "main": "apps/design-system/src/main.js",
+            "polyfills": "apps/design-system/src/polyfills.js",
+            "tsConfig": "apps/design-system/tsconfig.app.json",
+            "assets": [
+              "apps/design-system/src/favicon.ico",
+              "apps/design-system/src/assets"
+            ],
+            "styles": ["apps/design-system/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/design-system/src/environments/environment.js",
+                  "with": "apps/design-system/src/environments/environment.prod.js"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "design-system:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "design-system:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/design-system/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/design-system/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "design-system-e2e": {
+      "root": "apps/design-system-e2e",
+      "sourceRoot": "apps/design-system-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/design-system-e2e/cypress.json",
+            "tsConfig": "apps/design-system-e2e/tsconfig.e2e.json",
+            "devServerTarget": "design-system:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "design-system:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/design-system-e2e/**/*.js"]
+          }
+        }
+      }
+    },
+    "ui-shared": {
+      "root": "libs/ui-shared",
+      "sourceRoot": "libs/ui-shared/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ui-shared/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-shared/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/react"
+  },
+  "schematics": {
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "design-system"
 }

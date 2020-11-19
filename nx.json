@@ -22,5 +22,16 @@
       }
     }
   },
-  "projects": {}
+  "projects": {
+    "design-system": {
+      "tags": []
+    },
+    "design-system-e2e": {
+      "tags": [],
+      "implicitDependencies": ["design-system"]
+    },
+    "ui-shared": {
+      "tags": []
+    }
+  }
 }
